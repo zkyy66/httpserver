@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
-	"httpserver/lib"
 	"io"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/signal"
@@ -46,7 +46,7 @@ func main() {
 	log.Println("server exited properly\n")
 }
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	delay := lib.RandIntTime(10, 20)
+	delay := timeRandInt(10, 20)
 	time.Sleep(time.Millisecond * time.Duration(delay))
 	io.WriteString(w, "------------the http request------------------------------------\n")
 	req, err := http.NewRequest("GET", "http://service2", nil)
@@ -70,8 +70,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, fmt.Sprintf("res in %d ms", delay))
 
 }
-
-//func randInt(min, max int) int {
-//	rand.Seed(time.Now().Unix())
-//	return rand.Intn(max-min) + min
-//}
+func timeRandInt(min, max int) int {
+	rand.Seed(time.Now().UTC().UnixNano())
+	return min + rand.Intn(max-min)
+}
