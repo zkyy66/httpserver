@@ -3,7 +3,7 @@
  * @Name lib
  * @VariableName
 **/
-package httpserver
+package lib
 
 import (
 	"math/rand"

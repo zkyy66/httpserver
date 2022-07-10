@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"httpserver"
+	"httpserver/lib"
 	"io"
 	"log"
 	"net/http"
@@ -46,7 +46,7 @@ func main() {
 	log.Println("server exited properly\n")
 }
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	delay := httpserver.RandIntTime(10, 20)
+	delay := lib.RandIntTime(10, 20)
 	time.Sleep(time.Millisecond * time.Duration(delay))
 	io.WriteString(w, "------------the http request------------------------------------\n")
 	req, err := http.NewRequest("GET", "http://service2", nil)

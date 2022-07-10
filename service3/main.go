@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"httpserver"
+	"httpserver/lib"
 	"io"
 	"log"
 	"net/http"
@@ -46,7 +46,7 @@ func main() {
 }
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "entering service 2 handleindex")
-	delay := httpserver.RandIntTime(10, 20)
+	delay := lib.RandIntTime(10, 20)
 	time.Sleep(time.Millisecond * time.Duration(delay))
 	io.WriteString(w, "------------the http request service------------------------------------\n")
 	for k, v := range r.Header {
