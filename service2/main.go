@@ -16,6 +16,7 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
+	mux.HandleFunc("/healthz", healthz)
 	mux.HandleFunc("/", handleIndex)
 	//errInfo := http.ListenAndServe(":8080", mux)
 	//if errInfo != nil {
@@ -73,4 +74,11 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 func timeRandInt(min, max int) int {
 	rand.Seed(time.Now().UTC().UnixNano())
 	return min + rand.Intn(max-min)
+}
+func healthz(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "service2\n")
+	for k, v := range r.Header {
+		io.WriteString(w, fmt.Sprintf("%s=%s\n", k, v))
+	}
+	io.WriteString(w, "ok\n")
 }
